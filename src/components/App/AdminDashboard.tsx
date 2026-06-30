@@ -45,21 +45,9 @@ export default function AdminDashboard() {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [activeSearch, setActiveSearch] = useState("");
   const observer = useRef<IntersectionObserver | null>(null);
   const [isLastPage, setIsLastPage] = useState(false);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-      setPage(0);
-      setIsLastPage(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchTerm]);
 
   const fetchUsers = useCallback(
     async (search: string = "", newPage: number = 0) => {
@@ -92,12 +80,24 @@ export default function AdminDashboard() {
   );
 
   useEffect(() => {
-    fetchUsers(debouncedSearchTerm, page);
-  }, [page, debouncedSearchTerm, fetchUsers]);
+    fetchUsers(activeSearch, page);
+  }, [page, activeSearch, fetchUsers]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = () => {
+    setActiveSearch(searchTerm);
     setUsers([]);
+    setPage(0);
+    setIsLastPage(false);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const handleObserver = useCallback(
@@ -133,7 +133,7 @@ export default function AdminDashboard() {
       </h1>
       <section className="my-5 flex justify-center flex-col items-center  w-full">
         <h2 className="text-lg font-semibold mb-3">User List</h2>
-        <div className="flex mb-5 p-3 rounded-lg border w-[50%] max-md:w-[95%] gap-3">
+        <div className="flex mb-5 p-3 rounded-lg border w-[50%] max-md:w-[95%] gap-3 items-center">
           <span>
             <IoSearch size={24} />
           </span>
@@ -141,9 +141,16 @@ export default function AdminDashboard() {
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
+            onKeyPress={handleKeyPress}
             placeholder="Search by name or email"
             className="outline-none active:bg-none w-full"
           />
+          <button
+            onClick={handleSearch}
+            className="bg-primary text-white px-4 py-1 rounded-md hover:bg-primary/90 transition-colors"
+          >
+            Search
+          </button>
         </div>
         <div className="w-[80%] max-md:w-[95%] flex flex-col gap-10">
           {users.map((user, userIndex) => (
