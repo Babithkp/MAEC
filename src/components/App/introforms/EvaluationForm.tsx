@@ -126,15 +126,25 @@ const languageList = [
   { value: "Zulu", name: "Zulu" },
 ];
 
+type TranslationOption = "German" | "Dutch" | "French" | "";
+
+const translationPrices: Record<Exclude<TranslationOption, "">, number> = {
+  German: 10,
+  Dutch: 15,
+  French: 15,
+};
+
 export default function EvaluationForm() {
   const setPage = useSetRecoilState(evalutonForm);
-  const [onlyEng, setOnlyEng] = useState(false);
+  const [translationOption, setTranslationOption] =
+    useState<TranslationOption>("");
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
-  const engHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setOnlyEng(isChecked);
+  const onlyEng = translationOption !== "";
+
+  const translationHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setTranslationOption(event.target.value as TranslationOption);
   };
 
   const prevButtonHandler = () => {
@@ -233,7 +243,7 @@ export default function EvaluationForm() {
           setValue("transcript", data.transcript);
           setValue("language", data.language);
           if (data.language) {
-            setOnlyEng(true);
+            setTranslationOption("German");
           }
         }
       }
@@ -247,36 +257,6 @@ export default function EvaluationForm() {
       className="px-10 max-md:px-2 flex flex-col gap-5 max-md:w-full w-[70%] md:border-l"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-5">
-        <p className="mt-10 font-bold">Select type of service you need</p>
-        <div className="flex flex-col gap-10 mb-10">
-          <div className="flex items-center gap-5">
-            <input
-              id="courseby"
-              type="checkbox"
-              className="checkbox checkbox-info [--chkfg:white] "
-              {...register("certificate")}
-            />
-            <label className="w-full flex justify-between" htmlFor="courseby">
-              <p>Certificate Verification</p> <p className="font-bold">€15</p>
-            </label>
-          </div>
-          <div className="flex items-center gap-5">
-            <input
-              id="verification"
-              type="checkbox"
-              className="checkbox checkbox-info [--chkfg:white]"
-              {...register("transcript")}
-            />
-            <label
-              className="w-full flex justify-between"
-              htmlFor="verification"
-            >
-              <p>Transcript Verification</p> <p className="font-bold">€15</p>
-            </label>
-          </div>
-        </div>
-      </div>
 
       <div className="flex flex-col gap-5 border-t ">
         <p className="py-5 font-bold">
@@ -284,26 +264,53 @@ export default function EvaluationForm() {
           <span className="text-red-500">*</span>
         </p>
         <p>
-          Certified translations for all official and legal documents not issued
-          in German language.
+        Certifiied translations for all official and legal documents.
         </p>
         <div className="flex flex-col gap-5 ">
           <div className="flex items-center gap-5">
             <input
-              id="tranEng"
+              id="tranGerman"
               type="radio"
               name="Translation"
+              value="German"
               className="border-black radio radio-info"
-              onChange={engHandler}
+              checked={translationOption === "German"}
+              onChange={translationHandler}
             />
-            <label htmlFor="tranEng">Add German Translation</label>
+            <label htmlFor="tranGerman">Add German Translation</label>
+          </div>
+          <div className="flex items-center gap-5">
+            <input
+              id="tranDutch"
+              type="radio"
+              name="Translation"
+              value="Dutch"
+              className="border-black radio radio-info"
+              checked={translationOption === "Dutch"}
+              onChange={translationHandler}
+            />
+            <label htmlFor="tranDutch">Add Dutch Translation</label>
+          </div>
+          <div className="flex items-center gap-5">
+            <input
+              id="tranFrench"
+              type="radio"
+              name="Translation"
+              value="French"
+              className="border-black radio radio-info"
+              checked={translationOption === "French"}
+              onChange={translationHandler}
+            />
+            <label htmlFor="tranFrench">Add French Translation</label>
           </div>
           {onlyEng && (
             <div className="flex flex-col gap-5">
               <p>
                 Translated documents will be delivered via email once complete.
               </p>
-              <p className="font-bold">€7 per document</p>
+              <p className="font-bold">
+                €{translationPrices[translationOption as Exclude<TranslationOption, "">]} per document
+              </p>
               <p>
                 Select the current language of your document.
                 <span className="text-red-500">*</span>
@@ -329,10 +336,6 @@ export default function EvaluationForm() {
 
             <p>
               Document Translation:
-              <span className="font-bold"> 3 Business Days.</span>
-            </p>
-            <p>
-              Document Verification:
               <span className="font-bold"> 3 Business Days.</span>
             </p>
           </div>
