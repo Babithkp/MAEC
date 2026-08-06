@@ -12,6 +12,7 @@ interface FormValues {
   certificate: number;
   transcript: number;
   language: string;
+  translationOption: string;
   userId: string | null;
 }
 
@@ -176,6 +177,7 @@ export default function EvaluationForm() {
     }
     setIsLoading(true);
     setFetchError(null);
+    data.translationOption = translationOption;
 
     if (data.certificate || data.transcript) {
       if (localStorage.getItem("userId")) {
@@ -242,7 +244,9 @@ export default function EvaluationForm() {
           setValue("certificate", data.certificate);
           setValue("transcript", data.transcript);
           setValue("language", data.language);
-          if (data.language) {
+          if (data.translationOption) {
+            setTranslationOption(data.translationOption);
+          } else if (data.language) {
             setTranslationOption("German");
           }
         }

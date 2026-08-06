@@ -20,6 +20,12 @@ interface PaymentItemType {
   quantity: number;
 }
 
+const translationPrices: Record<string, number> = {
+  German: 10,
+  Dutch: 15,
+  French: 15,
+};
+
 export default function Pay() {
   const setPage = useSetRecoilState(evalutonForm);
   const [totalRate, setToatlRate] = useState(0);
@@ -131,8 +137,9 @@ export default function Pay() {
           const qty = docData.transcript?.length + docData.certificate?.length;
           setQuantity(qty);
 
+          const translationRate = translationPrices[docData.translationOption] ?? 10;
           const academicRate = docData.certificate?.length * 15;
-          const transcriptRate = docData.transcript?.length * 7;
+          const transcriptRate = docData.transcript?.length * translationRate;
 
           setMaterialRate({
             transcript: transcriptRate + academicRate,
@@ -144,7 +151,7 @@ export default function Pay() {
           if (docData.transcript?.length > 0) {
             newPaymentData.push({
               name: "Document Translation",
-              amount: 7,
+              amount: translationRate,
               quantity: qty,
             });
           }
