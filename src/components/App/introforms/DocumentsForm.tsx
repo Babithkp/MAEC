@@ -227,11 +227,11 @@ export default function EducationForm() {
         <ul className="flex flex-col gap-5">
           <li>
             Here you can upload your academic credentials and other official
-            documents for translation or verification purposes.
+            documents for translation or purposes.
           </li>
           <li>
             All documents uploaded on this portal will be processed for
-            translation or verification according to the options you have
+            translation or according to the options you have
             selected and the documents you have uploaded.
           </li>
           <li>
