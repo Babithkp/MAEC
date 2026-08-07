@@ -12,7 +12,7 @@ export default function Services() {
       <div className="flex w-[95%] justify-center items-center max-md:flex-col gap-5">
         <div className="flex max-md:w-[95%]  flex-col border gap-10 p-10  max-md:p-8 pr-32 rounded-2xl">
           <p className="text-xl flex items-center max-md:text-lg gap-2">
-            German Translations
+            Translations
             <Tooltip open={open} onOpenChange={setOpen}>
               <TooltipTrigger asChild>
                 <Button
@@ -34,8 +34,7 @@ export default function Services() {
             </Tooltip>
           </p>
           <p className="text-sm font-medium">
-            The official certified translation of a document from one language
-            to German language.
+          The official certified translation of document from one language to another.
           </p>
           <Button
             className="bg-primary font-bold rounded-full w-[8rem]"

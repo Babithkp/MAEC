@@ -5,7 +5,7 @@ export default function Pricing() {
     <main className="flex flex-col justify-center items-center">
       <section className="w-[80%] text-center">
         <h1 className="text-4xl font-bold my-5 max-md:text-2xl">
-        Pricing for translation and Verification services.
+        Pricing for Translation services.
         </h1>
         <p className="mb-10">Check out our industry leading low prices!</p>
         <div className="">
@@ -13,14 +13,20 @@ export default function Pricing() {
   
             <div className="bg-[#f5f5f5] rounded-lg p-2 grid col-span-full grid-cols-[15rem,10rem] justify-items-center items-center">
               <div className="border-b font-bold p-5 w-full h-full flex justify-center items-center">
-              Official Translations 
+              Official Dutch translations
               </div>
               <div className="bg-white w-full h-full rounded-tl-lg border flex justify-center items-center text-xl font-bold text-primary">
-              €7
+              €15
               </div>
 
               <div className="border-b font-bold p-5 w-full h-full flex justify-center items-center">
-              Official Verification
+              Official French translation
+              </div>
+              <div className="bg-white w-full h-full  border flex justify-center items-center text-xl font-bold text-primary">
+              €15
+              </div>
+              <div className="border-b font-bold p-5 w-full h-full flex justify-center items-center">
+              Official German translation 
               </div>
               <div className="bg-white w-full h-full  border flex justify-center items-center text-xl font-bold text-primary">
               €10

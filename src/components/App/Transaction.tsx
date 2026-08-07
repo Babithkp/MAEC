@@ -17,12 +17,6 @@ export default function Transaction() {
           <p className="">
           Specialize in the translation official documents such as; Acdemic transcript and certificates, Birth Certificate, Marriage Certificate, official letters, bank statements, Application letters, Licenses and Employment Contracts etc.
           </p>
-          <p className="">
-          Translation Fee: €7 per document.
-          </p>
-          <p>
-            Processing Time: <span className="font-bold">3 business days</span>.
-          </p>
         </div>
       </section>
       <section className="w-[90%] max-md:w-[100%] font-medium p-5">
