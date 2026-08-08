@@ -13,7 +13,7 @@ export default function Pricing() {
   
             <div className="bg-[#f5f5f5] rounded-lg p-2 grid col-span-full grid-cols-[15rem,10rem] justify-items-center items-center">
               <div className="border-b font-bold p-5 w-full h-full flex justify-center items-center">
-              Official Dutch translations
+              Official Dutch translation
               </div>
               <div className="bg-white w-full h-full rounded-tl-lg border flex justify-center items-center text-xl font-bold text-primary">
               €15

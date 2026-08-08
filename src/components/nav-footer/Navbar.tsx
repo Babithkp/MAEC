@@ -65,8 +65,8 @@ export default function Navbar() {
       }
       const fetch = async () => {
         const response = await getUserProfileById({ userId: userId })
-        if (response) {
-          setuserName(response.data.data?.first_name);
+        if (response && response.data.data?.first_name) {
+          setuserName(response.data.data.first_name);
           localStorage.setItem("usermail", response.data.data.first_name)
         }
       }

@@ -1,5 +1,5 @@
 import { Button } from "../../ui/button";
-import { FaSortDown } from "react-icons/fa";
+import { FaSortDown, FaEye, FaEyeSlash } from "react-icons/fa";
 import Map from "./objects/Map";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -16,6 +16,8 @@ interface FormValues {
 export default function CreateAccount() {
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -116,12 +118,22 @@ export default function CreateAccount() {
               <label>
                 Password <span className="text-red-500">*</span>
               </label>
-              <input
-                type="password"
-                required
-                className="outline-none mb-5 active:bg-none"
-                {...register("password", { required: true, minLength: 8 })}
-              />
+              <div className="relative flex items-center">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="outline-none mb-5 active:bg-none w-full pr-8"
+                  {...register("password", { required: true, minLength: 8 })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-0 mb-5 text-gray-500"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
               {errors.password && (
                 <span className="font-medium text-sm text-red-500">
                   This Field is Required with Minimum 8 Characters
@@ -132,17 +144,29 @@ export default function CreateAccount() {
               <label>
                 Confirm Password <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                required
-                className="outline-none mb-5 active:bg-none"
-                {...register("confirmPassword", {
-                  required: true,
-                  validate: (val) =>
-                    val === watch("password") ||
-                    "The Password confirmation do not match",
-                })}
-              />
+              <div className="relative flex items-center">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  required
+                  className="outline-none mb-5 active:bg-none w-full pr-8"
+                  {...register("confirmPassword", {
+                    required: true,
+                    validate: (val) =>
+                      val === watch("password") ||
+                      "The Password confirmation do not match",
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute right-0 mb-5 text-gray-500"
+                  aria-label={
+                    showConfirmPassword ? "Hide password" : "Show password"
+                  }
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
               {errors.confirmPassword && (
                 <span className="font-medium text-red-500">
                   {errors.confirmPassword.message}

@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import {
   addTotalAmt,
   getDocumentByUserId,
-  makePaymentPaypal,
+  // makePaymentPaypal,
   makePaymentStripe,
   // makePaymentStripe,
 } from "../../../http/fetch";
@@ -50,37 +50,37 @@ export default function Pay() {
     }
   };
 
-  const paypalButtonHandler = async () => {
-    if (isChecked) {
-      setIsLoading(true);
-      if (localStorage.getItem("userId")) {
-        const userId = localStorage.getItem("userId");
-        const updadtedresponse = await addTotalAmt({
-          id: userId,
-          totalAmt: totalRate,
-        });
-        console.log(updadtedresponse);
-        try {
-          const response = await makePaymentPaypal({ data: paymentdata });
-          if (response?.data) {            
-            window.location.href = response.data; 
-          }
-        } catch (e) {
-          setIsError("Payment failed");
-          setTimeout(() => {
-            setIsError(null);
-          }, 3000);
-          setIsLoading(false);
-        }
-      }
-    } else {
-      setIsError("Check this box to proceed");
-      setTimeout(() => {
-        setIsError(null);
-      }, 3000);
-    }
-    setIsLoading(false);
-  };
+  // const paypalButtonHandler = async () => {
+  //   if (isChecked) {
+  //     setIsLoading(true);
+  //     if (localStorage.getItem("userId")) {
+  //       const userId = localStorage.getItem("userId");
+  //       const updadtedresponse = await addTotalAmt({
+  //         id: userId,
+  //         totalAmt: totalRate,
+  //       });
+  //       console.log(updadtedresponse);
+  //       try {
+  //         const response = await makePaymentPaypal({ data: paymentdata });
+  //         if (response?.data) {            
+  //           window.location.href = response.data; 
+  //         }
+  //       } catch (e) {
+  //         setIsError("Payment failed");
+  //         setTimeout(() => {
+  //           setIsError(null);
+  //         }, 3000);
+  //         setIsLoading(false);
+  //       }
+  //     }
+  //   } else {
+  //     setIsError("Check this box to proceed");
+  //     setTimeout(() => {
+  //       setIsError(null);
+  //     }, 3000);
+  //   }
+  //   setIsLoading(false);
+  // };
 
   const stripeButtonHandler = async () => {
     if (isChecked) {
@@ -230,7 +230,7 @@ export default function Pay() {
             Back
           </Button>
 
-          <Button
+          {/* <Button
             className="bg-primary font-bold rounded-full"
             onClick={paypalButtonHandler}
             type="button"
@@ -241,7 +241,7 @@ export default function Pay() {
             ) : (
               "Pay with Paypal"
             )}
-          </Button>
+          </Button> */}
           <Button
             className="bg-primary font-bold rounded-full"
             onClick={stripeButtonHandler}

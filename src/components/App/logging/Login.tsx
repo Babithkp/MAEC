@@ -1,4 +1,4 @@
-import { FaSortDown } from "react-icons/fa";import { Button } from "../../ui/button";
+import { FaSortDown, FaEye, FaEyeSlash } from "react-icons/fa";import { Button } from "../../ui/button";
 import Map from "./objects/Map";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CircularProgress } from "@mui/material";
@@ -13,6 +13,7 @@ interface FormValues {
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
 
   useEffect(() => {
@@ -110,12 +111,22 @@ export default function Login() {
               <label>
                 Password <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                required
-                className="outline-none mb-5 active:bg-none"
-                {...register("password", { required: true, minLength: 5 })}
-              />
+              <div className="relative flex items-center">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="outline-none mb-5 active:bg-none w-full pr-8"
+                  {...register("password", { required: true, minLength: 5 })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-0 mb-5 text-gray-500"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
               {errors.password && (
                 <span className="font-medium text-sm text-red-500">
                   This Field is Required with Minimum 5 Characters
