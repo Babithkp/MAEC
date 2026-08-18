@@ -29,6 +29,7 @@ interface UserProfileType {
   };
   evaluation: {
     language: string;
+    translationOption: string;
     documents: {
       courseByCourse: string[];
       certificate: string[];
@@ -48,6 +49,9 @@ export default function AdminDashboard() {
   const [activeSearch, setActiveSearch] = useState("");
   const observer = useRef<IntersectionObserver | null>(null);
   const [isLastPage, setIsLastPage] = useState(false);
+
+  console.log(users);
+  
 
   const fetchUsers = useCallback(
     async (search: string = "", newPage: number = 0) => {
@@ -245,7 +249,7 @@ export default function AdminDashboard() {
                             },
                           }}
                         >
-                          Language: {eva?.language || "English"}
+                          Language: {eva?.translationOption || eva?.language}
                         </Typography>
                         <Typography
                           sx={{

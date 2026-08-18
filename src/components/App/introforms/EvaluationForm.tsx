@@ -16,123 +16,13 @@ interface FormValues {
   userId: string | null;
 }
 
-const languageList = [
-  { value: "Afrikaans", name: "Afrikaans" },
-  { value: "Albanian", name: "Albanian" },
-  { value: "Amharic", name: "Amharic" },
-  { value: "Arabic", name: "Arabic" },
-  { value: "Armenian", name: "Armenian" },
-  { value: "Azerbaijani", name: "Azerbaijani" },
-  { value: "Basque", name: "Basque" },
-  { value: "Belarusian", name: "Belarusian" },
-  { value: "Bengali", name: "Bengali" },
-  { value: "Bosnian", name: "Bosnian" },
-  { value: "Bulgarian", name: "Bulgarian" },
-  { value: "Catalan", name: "Catalan" },
-  { value: "Cebuano", name: "Cebuano" },
-  { value: "ny", name: "Chichewa" },
-  { value: "Chinese", name: "Chinese" },
-  { value: "Corsican", name: "Corsican" },
-  { value: "Croatian", name: "Croatian" },
-  { value: "Czech", name: "Czech" },
-  { value: "Danish", name: "Danish" },
-  { value: "Dutch", name: "Dutch" },
-  { value: "English", name: "English" },
-  { value: "Esperanto", name: "Esperanto" },
-  { value: "Estonian", name: "Estonian" },
-  { value: "Filipino", name: "Filipino" },
-  { value: "Finnish", name: "Finnish" },
-  { value: "French", name: "French" },
-  { value: "Frisian", name: "Frisian" },
-  { value: "Galician", name: "Galician" },
-  { value: "Georgian", name: "Georgian" },
-  { value: "German", name: "German" },
-  { value: "Greek", name: "Greek" },
-  { value: "Gujarati", name: "Gujarati" },
-  { value: "Haitian", name: "Haitian" },
-  { value: "Hausa", name: "Hausa" },
-  { value: "Hawaiian", name: "Hawaiian" },
-  { value: "Hebrew", name: "Hebrew" },
-  { value: "Hindi", name: "Hindi" },
-  { value: "Hmong", name: "Hmong" },
-  { value: "Hungarian", name: "Hungarian" },
-  { value: "Icelandic", name: "Icelandic" },
-  { value: "Igbo", name: "Igbo" },
-  { value: "Indonesian", name: "Indonesian" },
-  { value: "Irish", name: "Irish" },
-  { value: "Italian", name: "Italian" },
-  { value: "Japanese", name: "Japanese" },
-  { value: "Javanese", name: "Javanese" },
-  { value: "Kannada", name: "Kannada" },
-  { value: "Kazakh", name: "Kazakh" },
-  { value: "Khmer", name: "Khmer" },
-  { value: "Kinyarwanda", name: "Kinyarwanda" },
-  { value: "Korean", name: "Korean" },
-  { value: "Kurdish", name: "Kurdish" },
-  { value: "Kyrgyz", name: "Kyrgyz" },
-  { value: "Lao", name: "Lao" },
-  { value: "Latin", name: "Latin" },
-  { value: "Latvian", name: "Latvian" },
-  { value: "Lithuanian", name: "Lithuanian" },
-  { value: "Luxembourgish", name: "Luxembourgish" },
-  { value: "Macedonian", name: "Macedonian" },
-  { value: "Malagasy", name: "Malagasy" },
-  { value: "Malay", name: "Malay" },
-  { value: "Malayalam", name: "Malayalam" },
-  { value: "Maltese", name: "Maltese" },
-  { value: "Maori", name: "Maori" },
-  { value: "Marathi", name: "Marathi" },
-  { value: "Mongolian", name: "Mongolian" },
-  { value: "Myanmar", name: "Myanmar" },
-  { value: "Nepali", name: "Nepali" },
-  { value: "Norwegian", name: "Norwegian" },
-  { value: "Odia", name: "Odia" },
-  { value: "Pashto", name: "Pashto" },
-  { value: "Persian", name: "Persian" },
-  { value: "Polish", name: "Polish" },
-  { value: "Portuguese", name: "Portuguese" },
-  { value: "Punjabi", name: "Punjabi" },
-  { value: "Romanian", name: "Romanian" },
-  { value: "Russian", name: "Russian" },
-  { value: "Samoan", name: "Samoan" },
-  { value: "Scots", name: "Scots" },
-  { value: "Serbian", name: "Serbian" },
-  { value: "Sesotho", name: "Sesotho" },
-  { value: "Shona", name: "Shona" },
-  { value: "Sindhi", name: "Sindhi" },
-  { value: "Sinhala", name: "Sinhala" },
-  { value: "Slovak", name: "Slovak" },
-  { value: "Slovenian", name: "Slovenian" },
-  { value: "Somali", name: "Somali" },
-  { value: "Spanish", name: "Spanish" },
-  { value: "Sundanese", name: "Sundanese" },
-  { value: "Swahili", name: "Swahili" },
-  { value: "Swedish", name: "Swedish" },
-  { value: "Tajik", name: "Tajik" },
-  { value: "Tamil", name: "Tamil" },
-  { value: "Tatar", name: "Tatar" },
-  { value: "Telugu", name: "Telugu" },
-  { value: "Thai", name: "Thai" },
-  { value: "Turkish", name: "Turkish" },
-  { value: "Turkmen", name: "Turkmen" },
-  { value: "Ukrainian", name: "Ukrainian" },
-  { value: "Urdu", name: "Urdu" },
-  { value: "Uyghur", name: "Uyghur" },
-  { value: "Uzbek", name: "Uzbek" },
-  { value: "Vietnamese", name: "Vietnamese" },
-  { value: "Welsh", name: "Welsh" },
-  { value: "Xhosa", name: "Xhosa" },
-  { value: "Yiddish", name: "Yiddish" },
-  { value: "Yoruba", name: "Yoruba" },
-  { value: "Zulu", name: "Zulu" },
-];
 
 type TranslationOption = "German" | "Dutch" | "French" | "";
 
 const translationPrices: Record<Exclude<TranslationOption, "">, number> = {
-  German: 10,
-  Dutch: 15,
-  French: 15,
+  German: 15,
+  Dutch: 10,
+  French: 10,
 };
 
 export default function EvaluationForm() {
@@ -169,7 +59,7 @@ export default function EvaluationForm() {
     });
   };
 
-  const { register, handleSubmit, setValue } = useForm<FormValues>();
+  const { handleSubmit, setValue } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     if (!onlyEng) {
       setFetchError("Please select any service you need");
@@ -179,20 +69,17 @@ export default function EvaluationForm() {
     setFetchError(null);
     data.translationOption = translationOption;
 
-    if (data.certificate || data.transcript) {
+    if (translationOption) {
       if (localStorage.getItem("userId")) {
         const userId = localStorage.getItem("userId");
         data.userId = userId;
 
-        if (data.certificate) {
-          data.certificate = 15
-        } else {
-          data.certificate = 0;
-        }
-        if (data.transcript) {
-          data.transcript = 7;
-        } else {
-          data.transcript = 0;
+        if (translationOption === "German") {
+          data.certificate = 15;
+        } else if (translationOption === "Dutch") {
+          data.certificate = 10;
+        } else if (translationOption === "French") {
+          data.certificate = 10;
         }
         try {
           const response = await addEvalutions(data);
@@ -239,7 +126,6 @@ export default function EvaluationForm() {
         const response = await getUserEvalutionById({ userId: userId });
         if (response.data.data) {
           const data = response.data.data;
-          console.log(data);
           
           setValue("certificate", data.certificate);
           setValue("transcript", data.transcript);
@@ -268,7 +154,7 @@ export default function EvaluationForm() {
           <span className="text-red-500">*</span>
         </p>
         <p>
-        Certifiied translations for all official and legal documents.
+        Select the language you want your document translated into.
         </p>
         <div className="flex flex-col gap-5 ">
           <div className="flex items-center gap-5">
@@ -315,21 +201,7 @@ export default function EvaluationForm() {
               <p className="font-bold">
                 €{translationPrices[translationOption as Exclude<TranslationOption, "">]} per document
               </p>
-              <p>
-                Select the current language of your document.
-                <span className="text-red-500">*</span>
-              </p>
-              <select
-                id="languages"
-                className="focus:outline-none w-full border-b py-3 "
-                {...register("language")}
-              >
-                {languageList.map((country) => (
-                  <option key={country.value} value={country.value}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
+              
             </div>
           )}
 

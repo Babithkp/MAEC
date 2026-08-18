@@ -107,9 +107,6 @@ export default function Navbar() {
           <li>
             <a href="/guidelines">Evalution Guldelines</a>
           </li>
-          <li>
-            <a href="/pricing">Pricing</a>
-          </li>
         </ul>
         <div className="flex gap-3">
           {!userName && (
@@ -221,12 +218,7 @@ export default function Navbar() {
                         Support
                       </AccordionTrigger>
                       <AccordionContent className="text-start px-5 flex flex-col gap-3">
-                        <div>
-                          <a href="/pricing" className="font-bold">
-                            Pricing
-                          </a>
-                          <p>Check out our pricing.</p>
-                        </div>
+                        
                         <div>
                           <a href="/contactus" className="font-bold">
                             Contact us

@@ -14,25 +14,10 @@ export default function Verification() {
             Documents that can be Verification by ITS</h2>
 
           <p>
-            Academic certificates and transcripts, employment letters, bank statements, and birth certificates.
+          Academic certificates, transcripts, employment letters, bank statements, birth certificates, professional credentials, etc.
           </p>
 
-          <p className="font-bold">
-            The academic verification report includes:
-          </p>
-          <p className="font-bold my-1">Translation Fee: €15 per document.</p>
-          <p className="font-bold my-1">Processing time : 3 business days </p>
-          <p className="font-bold my-1">How it works:</p>
-          <ul className="ml-5 list-disc flex flex-col gap-3">
-            <li>Create your account and login.</li>
-            <li>
-              Upload your documents for translation.
-            </li>
-            <li>Pay the fee.</li>
-            <li>
-              Receive your verification reports in your email address in 3 business days.
-            </li>
-          </ul>
+        
         </div>
       </section>
       <NeedAssistance />

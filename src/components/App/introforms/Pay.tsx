@@ -21,9 +21,9 @@ interface PaymentItemType {
 }
 
 const translationPrices: Record<string, number> = {
-  German: 10,
-  Dutch: 15,
-  French: 15,
+  German: 15,
+  Dutch: 10,
+  French: 10,
 };
 
 export default function Pay() {
