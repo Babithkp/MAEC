@@ -34,7 +34,9 @@ export default function EvaluationForm() {
 
   const onlyEng = translationOption !== "";
 
-  const translationHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const translationHandler = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setTranslationOption(event.target.value as TranslationOption);
   };
 
@@ -157,41 +159,20 @@ export default function EvaluationForm() {
         Select the language you want your document translated into.
         </p>
         <div className="flex flex-col gap-5 ">
-          <div className="flex items-center gap-5">
-            <input
-              id="tranGerman"
-              type="radio"
+          <div className="flex flex-col gap-2 max-w-xs">
+            <label htmlFor="translationSelect">Translation Language</label>
+            <select
+              id="translationSelect"
               name="Translation"
-              value="German"
-              className="border-black radio radio-info"
-              checked={translationOption === "German"}
+              className="border-black border rounded px-3 py-2 focus:outline-none"
+              value={translationOption}
               onChange={translationHandler}
-            />
-            <label htmlFor="tranGerman">Add German Translation</label>
-          </div>
-          <div className="flex items-center gap-5">
-            <input
-              id="tranDutch"
-              type="radio"
-              name="Translation"
-              value="Dutch"
-              className="border-black radio radio-info"
-              checked={translationOption === "Dutch"}
-              onChange={translationHandler}
-            />
-            <label htmlFor="tranDutch">Add Dutch Translation</label>
-          </div>
-          <div className="flex items-center gap-5">
-            <input
-              id="tranFrench"
-              type="radio"
-              name="Translation"
-              value="French"
-              className="border-black radio radio-info"
-              checked={translationOption === "French"}
-              onChange={translationHandler}
-            />
-            <label htmlFor="tranFrench">Add French Translation</label>
+            >
+              <option value=""></option>
+              <option value="German">German</option>
+              <option value="Dutch">Dutch</option>
+              <option value="French">French</option>
+            </select>
           </div>
           {onlyEng && (
             <div className="flex flex-col gap-5">

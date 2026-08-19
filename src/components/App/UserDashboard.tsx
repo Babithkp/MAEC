@@ -29,9 +29,9 @@ interface FormValues {
 interface Evaluation {
   language: string;
   documents: {
-    courseByCourse: string[];
-    certificate: string[];
-    transcript: string[];
+    courseByCourse?: string[];
+    certificate?: string[];
+    transcript?: string[];
     paid_amount: number;
     order_id: string;
   };
@@ -247,55 +247,61 @@ export default function UserDashboard() {
               </Typography>
             </AccordionSummary>
             <AccordionDetails className="flex flex-col gap-5">
-              <Typography className="md:w-[70rem]">
-                {eva.documents?.courseByCourse.map((doc) => (
-                  <>
-                    <p className="font-bold mb-2">
-                      Course-by-Course evaluation
-                    </p>
-                    <a
-                      key={doc}
-                      target="_blank"
-                      href={`${doc}`}
-                      className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
-                    >
-                      {doc.substring(104)}
-                    </a>
-                  </>
-                ))}
-              </Typography>
-              <Typography className="md:w-[70rem]">
-                {eva.documents?.certificate.map((doc) => (
-                  <>
-                    <p className="font-bold mb-2">
-                      Academic credential verification.
-                    </p>
-                    <a
-                      key={doc}
-                      target="_blank"
-                      href={`${doc}`}
-                      className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
-                    >
-                      {doc.substring(104)}
-                    </a>
-                  </>
-                ))}
-              </Typography>
-              <Typography className="md:w-[70rem]">
-                {eva.documents?.transcript.map((doc) => (
-                  <>
-                    <p className="font-bold mb-2">Document Translation.</p>
-                    <a
-                      key={doc}
-                      target="_blank"
-                      href={`${doc}`}
-                      className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
-                    >
-                      {doc.substring(104)}
-                    </a>
-                  </>
-                ))}
-              </Typography>
+              {(eva.documents?.courseByCourse?.length ?? 0) > 0 && (
+                <Typography className="md:w-[70rem]">
+                  {eva.documents.courseByCourse?.map((doc) => (
+                    <>
+                      <p className="font-bold mb-2">
+                        Course-by-Course evaluation
+                      </p>
+                      <a
+                        key={doc}
+                        target="_blank"
+                        href={`${doc}`}
+                        className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
+                      >
+                        {doc.substring(104)}
+                      </a>
+                    </>
+                  ))}
+                </Typography>
+              )}
+              {(eva.documents?.certificate?.length ?? 0) > 0 && (
+                <Typography className="md:w-[70rem]">
+                  {eva.documents.certificate?.map((doc) => (
+                    <>
+                      <p className="font-bold mb-2">
+                        Academic credential verification.
+                      </p>
+                      <a
+                        key={doc}
+                        target="_blank"
+                        href={`${doc}`}
+                        className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
+                      >
+                        {doc.substring(104)}
+                      </a>
+                    </>
+                  ))}
+                </Typography>
+              )}
+              {(eva.documents?.transcript?.length ?? 0) > 0 && (
+                <Typography className="md:w-[70rem]">
+                  {eva.documents.transcript?.map((doc) => (
+                    <>
+                      <p className="font-bold mb-2">Document Translation.</p>
+                      <a
+                        key={doc}
+                        target="_blank"
+                        href={`${doc}`}
+                        className=" border p-2 bg-slate-50 hover:bg-slate-100 ml-5"
+                      >
+                        {doc.substring(104)}
+                      </a>
+                    </>
+                  ))}
+                </Typography>
+              )}
             </AccordionDetails>
           </Accordion>
         ))}

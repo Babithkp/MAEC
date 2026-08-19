@@ -10,7 +10,6 @@ import DocumentionReq from "./components/App/DocumentionReq";
 import Guidelines from "./components/App/Guidelines";
 import EvalutionService from "./components/App/EvalutionService";
 import Transaction from "./components/App/Transaction";
-import Verification from "./components/App/Verification";
 import IntroForm from "./components/App/introforms/IntroForm";
 import { RecoilRoot } from "recoil";
 import Contactus from "./components/App/Contactus";
@@ -32,7 +31,6 @@ function App() {
           <Route path="/guidelines" element={<Guidelines />} />
           <Route path="/evalutionService" element={<EvalutionService />} />
           <Route path="/transaction" element={<Transaction />} />
-          <Route path="/verification" element={<Verification />} />
           <Route path="/get-started/Intro" element={<IntroForm />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />

@@ -1,4 +1,5 @@
-import Backdrop from "@mui/material/Backdrop";import {
+import Backdrop from "@mui/material/Backdrop";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -25,7 +26,6 @@ import {
 import { CircularProgress } from "@mui/material";
 
 interface Documents {
-  certificate: string[];
   transcript: string[];
   userId: string | null;
 }
@@ -37,17 +37,14 @@ interface DocumentsIsExisting {
 const endpoint = import.meta.env.VITE_CLOUDEFLARE_ENDPOINT;
 
 export default function EducationForm() {
-  const academicRef = useRef<HTMLInputElement | null>(null);
   const docTrasRef = useRef<HTMLInputElement | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [isLoading, setIsloading] = useState(false);
   const [buttonsLoading, setButtonsLoading] = useState(false);
 
-  const [academicError, setacademicError] = useState<null | string>(null);
   const [documentError, setdocumentError] = useState<null | string>(null);
   const setPage = useSetRecoilState(evalutonForm);
   const [dataStorage, setDataStorage] = useState<Documents>({
-    certificate: [],
     transcript: [],
     userId: "",
   });
@@ -61,32 +58,6 @@ export default function EducationForm() {
   });
   const formdata = new FormData();
 
-  const acdemicinputHandler = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (dataStorage.certificate.length >= 8) {
-      setOverloadmsg((prev) => ({ ...prev, certificate: true }));
-      return;
-    }
-    const files = event.target.files;
-    if (files) {
-      if (files[0].size > 5000000) {
-        setacademicError("File size is too large, (minimum sixe is 5Mb)");
-        return;
-      } else {
-        setacademicError(null);
-        setIsloading(true);
-        formdata.delete("files");
-        const newId = new Date().toISOString() + files[0].name;
-        formdata.append("files", files[0], newId);
-        await uploadPostDoc(formdata);
-        setIsloading(false);
-
-        setDataStorage((prev) => ({
-          ...prev,
-          certificate: [...prev.certificate, endpoint + newId],
-        }));
-      }
-    }
-  };
   const docuTransInputHandler = async (
     event: ChangeEvent<HTMLInputElement>,
   ) => {
@@ -116,10 +87,6 @@ export default function EducationForm() {
     }
   };
 
-  const deleteSingleFileAdamic = (index: number) => {
-    const filteredOut = dataStorage.certificate.filter((_, i) => i != index);
-    setDataStorage((prev) => ({ ...prev, certificate: filteredOut }));
-  };
   const deleteSingleFiledDocTras = (index: number) => {
     const filteredOut = dataStorage.transcript.filter((_, i) => i != index);
 
@@ -127,36 +94,21 @@ export default function EducationForm() {
   };
 
   const saveButtonHandler = async () => {
-    if (
-      dataStorage.certificate.length > 0 ||
-      dataStorage.transcript.length > 0
-    ) {
-      setButtonsLoading(true);
-
-      if (!isExist.certificate) {
-        dataStorage.certificate = [];
-      }
-      if (!isExist.transcript) {
-        dataStorage.transcript = [];
-      }
-      try {
-        if (localStorage.getItem("userId")) {
-          const userId = localStorage.getItem("userId");
-          dataStorage.userId = userId;
-          const response = await addDocuments(dataStorage);
-          if (response.data.message) {
-            setButtonsLoading(false);
-          }
+    setButtonsLoading(true);
+    try {
+      if (localStorage.getItem("userId")) {
+        const userId = localStorage.getItem("userId");
+        const response = await addDocuments({
+          transcript: dataStorage.transcript,
+          userId,
+        });
+        if (response.data.message) {
+          setButtonsLoading(false);
         }
-        setButtonsLoading(false);
-      } catch (err) {
-        setFetchError("Something went wrong, please try again");
-        setTimeout(() => {
-          setFetchError(null);
-        }, 3000);
       }
-    } else {
-      setFetchError("Upload your Files to Proceed");
+      setButtonsLoading(false);
+    } catch (err) {
+      setFetchError("Something went wrong, please try again");
       setTimeout(() => {
         setFetchError(null);
       }, 3000);
@@ -206,13 +158,7 @@ export default function EducationForm() {
         setIsloading(true);
         const response = await getUserEvalutionById({ userId: userId });
         if (response.data.data) {
-          const data = response.data.data;
-          if (data.certificate) {
-            setisExist((prev) => ({ ...prev, certificate: true }));
-          }
-          if (data.transcript || data.language) {
-            setisExist((prev) => ({ ...prev, transcript: true }));
-          }
+          setisExist((prev) => ({ ...prev, transcript: true }));
         }
       }
       setIsloading(false);
@@ -231,8 +177,8 @@ export default function EducationForm() {
           </li>
           <li>
             All documents uploaded on this portal will be processed for
-            translation or according to the options you have
-            selected and the documents you have uploaded.
+            translation or according to the options you have selected and the
+            documents you have uploaded.
           </li>
           <li>
             Ensure that you upload the orginal scanned copies of your documents.
@@ -242,7 +188,7 @@ export default function EducationForm() {
       </div>
 
       <div>
-        {isExist.transcript && dataStorage.transcript.length > 0 && (
+        {dataStorage.transcript.length > 0 && (
           <div className="flex flex-col gap-3 mt-5">
             <p className="font-bold">Document Translation.</p>
             <div className="p-1 border w-full flex">
@@ -257,28 +203,11 @@ export default function EducationForm() {
             </div>
           </div>
         )}
-
-        {isExist.certificate && dataStorage.certificate.length > 0 && (
-          <div className="flex flex-col gap-3 mt-5">
-            <p className="font-bold">Document Verification.</p>
-            <div className="p-1 border w-full flex">
-              {dataStorage.certificate.map((doc, i) => (
-                <span
-                  className="text-sm  font-medium mx-2 border rounded-lg p-1 bg-blue-200 max-md:m-0  max-md:text-xs flex items-center gap-1"
-                  key={i}
-                >
-                  {doc.substring(104)}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       <AlertDialog>
         <AlertDialogTrigger className="w-full mt-10 bg-primary font-bold rounded-full text-white p-2">
-          {dataStorage.certificate.length > 0 ||
-          dataStorage.transcript.length > 0
+          {dataStorage.transcript.length > 0
             ? "Edit Documents"
             : "Upload Documents"}
         </AlertDialogTrigger>
@@ -340,65 +269,16 @@ export default function EducationForm() {
                   )}
                 </span>
               )}
-              {isExist.transcript && isExist.certificate && (
-                <span className="my-5">
-                  <label className="text-sm font-semibold">
-                    Document Verification.
-                  </label>
-                  <span className="flex max-md:items-end rounded-sm border-[1.9px] border-slate-300 max-md:p-1 max-md:gap-2">
-                    <button
-                      type="button"
-                      className="bg-primary px-2 py-1 text-white"
-                      onClick={() => academicRef.current?.click()}
-                    >
-                      Browse
-                    </button>
-                    <input
-                      type="file"
-                      className="w-full px-2 text-sm focus:outline-blue-400 hidden"
-                      placeholder=""
-                      ref={academicRef}
-                      onChange={acdemicinputHandler}
-                      accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
-                    />
-                    <span className="w-full  flex flex-wrap gap-1">
-                      {dataStorage.certificate.map((doc, i) => (
-                        <span
-                          className="text-sm  font-medium mx-2 border rounded-lg p-1 bg-blue-200 max-md:m-0  max-md:text-xs flex items-center gap-1"
-                          key={i}
-                        >
-                          {doc.substring(104)}
-                          <Button
-                            variant={"secondary"}
-                            className="p-0 rounded-full w-5 h-5"
-                            onClick={() => deleteSingleFileAdamic(i)}
-                            type="button"
-                          >
-                            <RxCrossCircled className="w-full h-full" />
-                          </Button>
-                        </span>
-                      ))}
-                    </span>
-                  </span>
-                  {academicError && (
-                    <span className="text-red-500 text-sm font-medium mt-2">
-                      {academicError}
-                    </span>
-                  )}
-                  {overloadmsg.certificate && (
-                    <span className=" text-sm font-medium  text-red-500">
-                      Maxmium File Count Exceeded
-                    </span>
-                  )}
-                </span>
-              )}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="absolute top-0 right-0 border-none ">
               <RxCross2 size={20} />
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-primary font-bold rounded-full " onClick={saveButtonHandler}>
+            <AlertDialogAction
+              className="bg-primary font-bold rounded-full "
+              onClick={saveButtonHandler}
+            >
               Save
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -422,11 +302,7 @@ export default function EducationForm() {
           type="button"
           disabled={buttonsLoading ? true : false}
         >
-          {buttonsLoading ? (
-            <CircularProgress color="inherit" />
-          ) : (
-            "Next"
-          )}
+          {buttonsLoading ? <CircularProgress color="inherit" /> : "Next"}
         </Button>
       </div>
       <Backdrop

@@ -31,9 +31,9 @@ interface UserProfileType {
     language: string;
     translationOption: string;
     documents: {
-      courseByCourse: string[];
-      certificate: string[];
-      transcript: string[];
+      courseByCourse?: string[];
+      certificate?: string[];
+      transcript?: string[];
       paid_amount: number | null;
       order_id: string;
     };
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
                         )}
                       </AccordionSummary>
                       <AccordionDetails className="flex flex-col gap-5">
-                        {eva.documents?.certificate.length > 0 && (
+                        {(eva.documents?.certificate?.length ?? 0) > 0 && (
                           <Typography
                             className="md:w-[70rem] "
                             sx={{
@@ -295,7 +295,7 @@ export default function AdminDashboard() {
                             <span className="font-bold mb-2">
                               Certificate Verification
                             </span>
-                            {eva.documents?.certificate.map((doc) => (
+                            {eva.documents?.certificate?.map((doc) => (
                               <a
                                 key={doc}
                                 target="_blank"
@@ -307,7 +307,7 @@ export default function AdminDashboard() {
                             ))}
                           </Typography>
                         )}
-                        {eva.documents?.transcript.length > 0 && (
+                        {(eva.documents?.transcript?.length ?? 0) > 0 && (
                           <Typography
                             className="md:w-[70rem]"
                             sx={{
@@ -321,7 +321,7 @@ export default function AdminDashboard() {
                             <span className="font-bold mb-2">
                               Transcript Verification
                             </span>
-                            {eva.documents?.transcript.map((doc) => (
+                            {eva.documents?.transcript?.map((doc) => (
                               <a
                                 key={doc}
                                 target="_blank"

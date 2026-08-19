@@ -134,21 +134,20 @@ export default function Pay() {
         setIsFetch(false);
         if (docResponse) {
           const docData = docResponse.data.data;
-          const qty = docData.transcript?.length + docData.certificate?.length;
+          const qty = docData.transcript?.length ?? 0;
           setQuantity(qty);
 
           const translationRate = translationPrices[docData.translationOption] ?? 10;
-          const academicRate = docData.certificate?.length * 15;
-          const transcriptRate = docData.transcript?.length * translationRate;
+          const transcriptRate = qty * translationRate;
 
           setMaterialRate({
-            transcript: transcriptRate + academicRate,
+            transcript: transcriptRate,
           });
 
-          setToatlRate(academicRate + transcriptRate + 5);
+          setToatlRate(transcriptRate + 5);
           const newPaymentData = [];
 
-          if (docData.transcript?.length > 0) {
+          if (qty > 0) {
             newPaymentData.push({
               name: "Document Translation",
               amount: translationRate,

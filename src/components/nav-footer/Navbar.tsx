@@ -1,5 +1,4 @@
-import { Button } from "../ui/button";
-import webLogo from "/msac_full_logo.png";
+import { Button } from "../ui/button";import webLogo from "/msac_full_logo.png";
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaLinkedinIn, FaSortDown } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -64,23 +63,23 @@ export default function Navbar() {
         setuserName(name);
       }
       const fetch = async () => {
-        const response = await getUserProfileById({ userId: userId })
+        const response = await getUserProfileById({ userId: userId });
         if (response && response.data.data?.first_name) {
           setuserName(response.data.data.first_name);
-          localStorage.setItem("usermail", response.data.data.first_name)
+          localStorage.setItem("usermail", response.data.data.first_name);
         }
-      }
-      fetch()
+      };
+      fetch();
     } else {
       setuserName(null);
     }
-
   }, []);
 
   return (
     <nav
-      className={`flex p-8 w-full justify-between ${isOnSignup ? "hidden" : ""
-        }`}
+      className={`flex p-8 w-full justify-between ${
+        isOnSignup ? "hidden" : ""
+      }`}
     >
       <a href="/">
         <img
@@ -94,9 +93,6 @@ export default function Navbar() {
         <ul className="font-medium  flex gap-6 text-sm">
           <li>
             <a href="/transaction">Translation</a>
-          </li>
-          <li>
-            <a href="/verification">Verification</a>
           </li>
           <li>
             <a href="/evalutionService">Authentication</a>
@@ -174,7 +170,6 @@ export default function Navbar() {
         </div>
       </div>
       <div className="md:hidden">
-
         <AlertDialog>
           <AlertDialogTrigger>
             <RxHamburgerMenu className="md:hidden" size={25} />
@@ -185,7 +180,10 @@ export default function Navbar() {
                 <RxCross2 className="absolute right-5" size={25} />
               </AlertDialogCancel>
               <AlertDialogDescription>
-                <a href="/aboutus" className="font-bold p-2 w-screen text-black flex border-b ">
+                <a
+                  href="/aboutus"
+                  className="font-bold p-2 w-screen text-black flex border-b "
+                >
                   About us
                 </a>
                 <div className="p-2 w-screen text-black flex justify-end">
@@ -200,7 +198,8 @@ export default function Navbar() {
                             Translation
                           </a>
                           <p>
-                            Official document translation from one language to German language.
+                            Official document translation from one language to
+                            German language.
                           </p>
                         </div>
                         <div>
@@ -208,7 +207,8 @@ export default function Navbar() {
                             Aunthentication
                           </a>
                           <p>
-                            Service for authenticating and verifying official documents.
+                            Service for authenticating and verifying official
+                            documents.
                           </p>
                         </div>
                       </AccordionContent>
@@ -218,7 +218,6 @@ export default function Navbar() {
                         Support
                       </AccordionTrigger>
                       <AccordionContent className="text-start px-5 flex flex-col gap-3">
-                        
                         <div>
                           <a href="/contactus" className="font-bold">
                             Contact us
